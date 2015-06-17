@@ -19,16 +19,16 @@
 
 # Combine a spatial polygon dataframe with another dataframe
 merge.shpdf.df <- function(shpdf, df, by.shpdf, by.df) {	
-	shpdf@data <- data.frame(shpdf@data, df[match(shpdf@data[, by.shpdf], df[, by.df]), ])
-	return(shpdf)
+  shpdf@data <- data.frame(shpdf@data, df[match(shpdf@data[, by.shpdf], df[, by.df]), ])
+  return(shpdf)
 }
 
 # Combine a spatial polygon with a dataframe
 # Note that the row names of shp must match with the row names of df
 merge.shp.df <- function(shp, df, by.df) {
-	row.names(df) <- df[, by.df]
-	df <- df[row.names(df) %in% row.names(shp), ]	
-	return(SpatialPolygonsDataFrame(shp, data = df))
+  row.names(df) <- df[, by.df]
+  df <- df[row.names(df) %in% row.names(shp), ]	
+  return(SpatialPolygonsDataFrame(shp, data = df))
 }
 
 earth.dist <- function (long1, lat1, long2, lat2, units = "mi") {
