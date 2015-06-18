@@ -1,4 +1,7 @@
-# For database connectivity. Currently philosophy is to use DSN files created via Windows' DataSources (ODBC)
+#
+# Functions for talking to Microsoft SQL. 
+#
+# Currently philosophy is to use DSN files created via Windows' DataSources (ODBC)
 # application under File DSN
 
 library(RODBC) # Connectivity package
