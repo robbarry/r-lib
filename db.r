@@ -23,7 +23,7 @@ query <- function(sql, database = F, src = "DATA1") {
 }
 
 # Insert a dataframe into a MSSQL table. If append = F, will not allow insert into existing table.
-importDf <- function(table, database, df, src = "DATA1", append = T) {
+importDf <- function(table, database, df, src, append = T) {
 	channel <- dsnConnect(src)
 	sqlQuery(channel, paste("USE", database))
 	sqlSave(channel, df, tablename = table, rownames = F, append = append)
