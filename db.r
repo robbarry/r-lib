@@ -7,7 +7,7 @@
 library(RODBC) # Connectivity package
 
 # Modify this variable in your code (not here) if you access DSN's at a different location.
-dsn.path <- "r:/work/tools/dsn"
+dsn.path <- "r:/tools/dsn"
 
 # See:
 # http://dba.stackexchange.com/questions/2910/can-a-username-and-password-be-hard-coded-in-a-system-dsn
