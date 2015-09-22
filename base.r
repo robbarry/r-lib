@@ -15,3 +15,11 @@ options(scipen = 999)
 
 # Disable strings as factors
 options(stringsAsFactors = FALSE)
+
+# Because Excel...
+excel.date <- function(stamp) {
+  return(as.Date(as.numeric(stamp), origin = "1899-12-30"))
+}
+
+# This should be the table function's default behavior
+table.na <- function(...) table(..., useNA='ifany')
