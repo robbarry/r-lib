@@ -9,3 +9,9 @@ usePackage <- function(p) {
 
 # Clip dataframe to clipboard.
 ClipIt <- function(x) write.table(x, "clipboard-16384", sep="\t", row.names=F)
+
+# Disable scientific notation
+options(scipen = 999)
+
+# Disable strings as factors
+options(stringsAsFactors = FALSE)
