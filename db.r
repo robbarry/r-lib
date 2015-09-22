@@ -1,5 +1,5 @@
 #
-# Functions for talking to Microsoft SQL. 
+# Functions for talking to Microsoft SQL.
 #
 # Currently philosophy is to use DSN files created via Windows' DataSources (ODBC)
 # application under File DSN
@@ -31,4 +31,10 @@ importDf <- function(table, database, df, src, append = T) {
 	sqlQuery(channel, paste("USE", database))
 	sqlSave(channel, df, tablename = table, rownames = F, append = append)
 	odbcCloseAll()
+}
+
+# Read and execute a query directly from a file
+queryFromFile <- function(filename, database = F, src = "DATA1") {
+	qstring <- readChar(filename, file.info(filename)$size)
+	query(qstring, database, src)
 }
