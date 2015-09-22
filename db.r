@@ -19,7 +19,7 @@ dsnConnect <- function(src) {
 
 query <- function(sql, database = F, src = "DATA1") {
 	channel <- dsnConnect(src)
-  	if (database) sqlQuery(channel, paste("USE", database))
+  	if (database != F) sqlQuery(channel, paste("USE", database))
   	result <- sqlQuery(channel, sql, stringsAsFactors = F)
   	odbcCloseAll()
   	return (result)
