@@ -7,7 +7,9 @@
 library(RODBC) # Connectivity package
 
 # Modify this variable in your code (not here) if you access DSN's at a different location.
-if (!exists(ignore.dsn)) dsn.path <- "r:/tools/dsn"
+# make sure to set
+# dsn.path
+# to correct directory
 
 # Sample DSN:
 # [ODBC]
