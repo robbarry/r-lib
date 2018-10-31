@@ -28,11 +28,18 @@ dsnConnect <- function(src) {
 	odbcDriverConnect(paste("FILEDSN=", dsn.path, "/", src, ".dsn", sep = ""))
 }
 
-query <- function(sql, database = F, src = "DATA1") {
-	channel <- dsnConnect(src)
-  	if (database != F) sqlQuery(channel, paste("USE", database))
-  	result <- sqlQuery(channel, sql, stringsAsFactors = F)
-  	odbcCloseAll()
+query <- function(sql, database = F, src = "data1-new") {
+	if (grepl("apple", Sys.getenv("R_PLATFORM"))) {
+		src <- str_replace(toupper(src), "-NEW", "")
+		db <- odbcConnect(src, uid=dbusername, pwd=dbpassword)
+		result <- sqlQuery(db, query)
+		odbcClose(db)
+	} else {		
+		channel <- dsnConnect(src)
+		if (database != F) sqlQuery(channel, paste("USE", database))
+		result <- sqlQuery(channel, sql, stringsAsFactors = F)
+		odbcCloseAll()
+	}
   	return (result)
 }
 
@@ -49,3 +56,4 @@ queryFromFile <- function(filename, database = F, src = "DATA1") {
 	qstring <- readChar(filename, file.info(filename)$size)
 	query(qstring, database, src)
 }
+
