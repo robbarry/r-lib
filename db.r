@@ -31,15 +31,13 @@ dsnConnect <- function(src) {
 query <- function(sql, database = F, src = "data1-new") {
 	if (grepl("apple", Sys.getenv("R_PLATFORM"))) {
 		src <- str_replace(toupper(src), "-NEW", "")
-		db <- odbcConnect(src, uid=dbusername, pwd=dbpassword)
-		result <- sqlQuery(db, query)
-		odbcClose(db)
+		channel <- odbcConnect(src, uid=dbusername, pwd=dbpassword)
 	} else {		
 		channel <- dsnConnect(src)
-		if (database != F) sqlQuery(channel, paste("USE", database))
-		result <- sqlQuery(channel, sql, stringsAsFactors = F)
-		odbcCloseAll()
 	}
+	if (database != F) sqlQuery(channel, paste("USE", database))
+	result <- sqlQuery(channel, sql, stringsAsFactors = F)
+	odbcClose(channel)
   	return (result)
 }
 
