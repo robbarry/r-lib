@@ -23,3 +23,40 @@ excel.date <- function(stamp) {
 
 # This should be the table function's default behavior
 table.na <- function(...) table(..., useNA='ifany')
+
+
+merge.shpdf.df <- function(shpdf, df, by.shpdf, by.df) {
+  shpdf@data <-
+    data.frame(shpdf@data, df[match(shpdf@data[, by.shpdf], df[, by.df]), ])
+  return(shpdf)
+}
+
+# Get a fill
+get_fill <- function(variable, palette = "YlOrRd", breaks = 5) {
+  library("RColorBrewer")
+  library("classInt")
+  pal <- brewer.pal(breaks, palette)
+  return(findColours(classIntervals(variable, n = breaks), pal))
+}
+
+# Tom's convenience function. Note that this will only work with clipr installed.
+notate <-
+  function(text) {
+    library("clipr")
+    len = nchar(text)
+    hashes = 70 - len - 2
+    lefthashes = floor(hashes/2)
+    righthashes = hashes - lefthashes
+    
+    notation <-
+      paste0(
+        paste(rep("#",lefthashes),collapse=""),
+        "  ",
+        toupper(text),
+        "  ",
+        paste(rep("#",righthashes),collapse = "")
+      )
+    
+    write_clip(notation)
+  }
+
